@@ -36,3 +36,6 @@ runtest
 *.isa
 *.il
 .gdbinit
+*.elf
+*.img
+*.map
