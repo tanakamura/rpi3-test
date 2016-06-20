@@ -8,6 +8,7 @@ char *strcat(char *dest, const char *src);
 
 void *memset(void *p, int c, size_t len);
 void *memcpy(void *p, const void *src, size_t len);
+void *memmove(void *p, const void *src, size_t len);
 
 char *strcpy(char *dest, const char *src);
 char *strncpy(char *dest, const char *src, size_t n);

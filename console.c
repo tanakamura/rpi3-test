@@ -94,13 +94,25 @@ void console_init(struct console *con,
 
 extern unsigned char font8x8[];
 
+static void
+next_line(struct console *con)
+{
+        con->cur_x = 0;
+        if (con->cur_y == con->screen_char_height-1) {
+            unsigned char *dst = con->frame_buffer;
+            unsigned char *src = con->frame_buffer + con->char_bbox_height * con->screen_width;
+
+            memmove(dst, src, con->screen_width * (con->screen_height - con->char_bbox_height));
+        } else {
+            con->cur_y++;
+        }
+}
 
 void
 disp_char(struct console *con, char c)
 {
     if (c == '\n') {
-        con->cur_x = 0;
-        con->cur_y++;
+        next_line(con);
         return;
     }
 
@@ -125,8 +137,7 @@ disp_char(struct console *con, char c)
 
     con->cur_x ++;
     if (con->cur_x == con->screen_char_width) {
-        con->cur_x = 0;
-        con->cur_y ++;
+        next_line(con);
     }
 }
 
